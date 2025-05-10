@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var order_1 = require("./order");
+var paymentsprocessor_1 = require("./paymentsprocessor");
+var invoiceprocessor_1 = require("./invoiceprocessor");
+var priceCalculator_1 = require("./priceCalculator");
+var product1 = new order_1.Product("chappal", "1", 1000);
+var product2 = new order_1.Product("belt", "2", 500);
+var order = new order_1.Order();
+order.addProduct(product1);
+order.addProduct(product2);
+var totalAmount = new priceCalculator_1.PriceCalculator().getTotal(order.products);
+var paymentProcessor = new paymentsprocessor_1.PaymentProcessor();
+paymentProcessor.paymentInfo(order.products);
+var invoice = new invoiceprocessor_1.InvoiceProcessor();
+invoice.generateInvoice(order.products, totalAmount);
